@@ -27,6 +27,15 @@ app.use(session({
 app.use(morgan('tiny'))
 app.use(passport.initialize())
 app.use(passport.session())
+
+app.use((req, res, next) => {
+  if (req.user) {
+    res.locals.isAuthenticated = true
+    res.locals.user = req.user
+  }
+
+  next()
+})
 app.use(routes)
 
 DB.sequelize.sync().then(() => {

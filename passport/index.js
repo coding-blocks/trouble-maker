@@ -1,5 +1,7 @@
 const passport = require('passport')
 const OneauthStrategy = require('passport-oneauth').Strategy
+const BearerStrategy = require('passport-http-bearer').Strategy;
+
 const v4 = require('uuid/v4')
 
 const DB = require('../models')
@@ -39,6 +41,21 @@ async function (acessToken, refreshToken, profile, cb) {
   })
 
   cb(null, user.get({plain: true}))
+}))
+
+passport.use(new BearerStrategy(async function (token, cb) {
+  const apiKey = await DB.keys.findOne({
+    where: {
+      key: token
+    },
+    include: DB.users
+  })
+
+  if(apiKey) {
+    cb(null, apiKey.user)
+  } else {
+    cb(new Error('Invalid Token'))
+  }
 }))
 
 
