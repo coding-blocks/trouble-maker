@@ -13,10 +13,15 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0
+    },
+    correctAnswers: {
+      type: DataTypes.ARRAY(DataTypes.BIGINT),
+      allowNull: false,
+      defaultValue: []
     }
   }, {});
   questions.associate = function(models) {
-    questions.belongsTo(models.users, {foreignKey: 'createdBy'})
+    questions.belongsTo(models.users, {foreignKey: 'createdById'})
     questions.hasMany(models.choices)
   };
   return questions;

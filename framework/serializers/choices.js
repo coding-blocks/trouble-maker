@@ -6,7 +6,7 @@ module.exports = function (included = [], type, config) {
   if (type === 'deserialize') {
     return {
       keyForAttribute: 'camelCase',
-      users: {
+      questions: { /* should be the type and not the key name */
         valueForRelationship (relationship) {
           return {
             id: relationship.id
@@ -17,21 +17,16 @@ module.exports = function (included = [], type, config) {
   }
 
   const options = {
-    attributes: ['title', 'description', 'difficulty' ,'user', 'choices', 'createdBy'],
+    attributes: ['title', 'description', 'positiveWeight' ,'negativeWeight', 'question'],
     meta: {
       pagination: function (record) {
         return record.pagination
       }
     },
-    user: {
+    question: {
       ref: 'id',
-      attributes: ['firstname', 'lastname', 'email', 'role'],
-      included: included.includes('user')
-    },
-    choices: {
-      ref: 'id',
-      attributes: ['title', 'description', 'positiveWeight' ,'negativeWeight', 'question'],
-      included: included.includes('choices')
+      attributes: ['title', 'description', 'difficulty' ,'user', 'createdBy'],
+      included: included.includes('question')
     },
     ...config
   }
