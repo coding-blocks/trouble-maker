@@ -1,0 +1,15 @@
+<div class="container">
+  <h1>{{question.title}}</h1>
+
+  <p>
+    {{question.description}}
+  </p>
+
+  <ul>
+    {{#each question.choices}}
+      <li>{{title}}</li>
+    {{/each}}
+  </ul>
+
+  Created By: <mark>{{question.user.firstname}}</mark>
+</div>
