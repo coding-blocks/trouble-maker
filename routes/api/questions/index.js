@@ -12,6 +12,8 @@ Router.use(passport.authenticate('bearer', {session: false}), adminOnly)
 Router.get('/', controller.handleQuery)
 Router.get('/:id', controller.handleQueryById)
 Router.patch('/:id', controller.handleUpdateById)
+
+// TODO: check correctAnswers, we should check if the id exists in choices
 Router.post('/', controller.handleCreate)
 Router.delete('/:id', controller.handleDeleteById)
 

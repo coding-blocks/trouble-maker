@@ -11,6 +11,7 @@ const config = require('./config/config.json')
 const DB = require('./models')
 const routes = require('./routes')
 
+app.use(express.static(__dirname + '/public'))
 app.engine('handlebars', exphbs({
   defaultLayout: 'main'
 }))

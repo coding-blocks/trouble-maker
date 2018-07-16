@@ -1,4 +1,5 @@
 const Homepage = require('./pages/home')
+const QuestionsPage = require('./pages/questions')
 const passport = require('../passport')
 const Api = require('./api')
 
@@ -6,6 +7,7 @@ const Router = require('express').Router()
 
 Router.use('/api', Api)
 Router.use('/home', Homepage)
+Router.use('/questions', QuestionsPage)
 
 Router.get('/', (req, res) => {
   res.redirect('/home')
