@@ -12,7 +12,10 @@ const DB = require('./models')
 const routes = require('./routes')
 
 app.use(require('cookie-parser')());
-app.use(require('body-parser').json());
+app.use(require('body-parser').json({
+  limit: '100mb',
+  type: 'application/vnd.api+json'
+}));
 app.use(session({
   secret: 'inthepromiseblouse',
   resave: true,
