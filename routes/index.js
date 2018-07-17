@@ -1,25 +1,25 @@
-const Homepage = require('./pages/home')
-const QuestionsPage = require('./pages/questions')
 const passport = require('../passport')
 const Api = require('./api')
+const cors = require('cors')
 
 const Router = require('express').Router()
 
-Router.use('/api', Api)
-Router.use('/home', Homepage)
-Router.use('/questions', QuestionsPage)
+Router.use(cors({
+  origin: 'http://localhost:4200',
+  credentials: true
+}))
 
-Router.get('/', (req, res) => {
-  res.redirect('/home')
-})
+Router.use('/api', Api)
 
 Router.get('/login', passport.authenticate('oneauth'))
-Router.get('/login/callback', passport.authenticate('oneauth'), (req, res) => {
-  res.redirect('/')
+Router.get('/api/login/callback', passport.authenticate('oneauth'), (req, res) => {
+  
 })
-Router.get('/logout', (req, res) => {
+
+
+Router.get('/api/logout', (req, res) => {
   req.logOut()
-  res.redirect('/')
+  res.json({})
 })
 
 module.exports = Router

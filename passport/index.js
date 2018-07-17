@@ -38,19 +38,22 @@ async function (acessToken, refreshToken, profile, cb) {
   const session = await DB.sessions.create({
     key: v4(),
     userId: user.id
+  }, {
+    returning: true
   })
 
-  cb(null, user.get({plain: true}))
+  cb(null, session.get({plain: true}))
 }))
 
 passport.use(new BearerStrategy(async function (token, cb) {
-  const apiKey = await DB.keys.findOne({
+  const apiKey = await DB.sessions.findOne({
     where: {
       key: token
     },
     include: DB.users
   })
 
+  
   if(apiKey) {
     cb(null, apiKey.user)
   } else {

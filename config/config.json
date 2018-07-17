@@ -24,6 +24,6 @@
   "ONEAUTH": {
     "clientID": "2636937167",
     "clientSecret": "EphV9Fx8ZdCfmMAVZfJsUqEtvNVDTdqNcpiInuQ0Y4cmq2ZDMHqiQBBC9sUtazPS",
-    "callbackURL": "http://localhost:8080/login/callback"
+    "callbackURL": "http://localhost:4200/callback"
   }
 }
