@@ -10,7 +10,7 @@ Router.use('/api', Api)
 
 Router.get('/login', passport.authenticate('oneauth'))
 Router.get('/api/login/callback', passport.authenticate('oneauth'), (req, res) => {
-  
+  res.json(req.user)
 })
 
 
