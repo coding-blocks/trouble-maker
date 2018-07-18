@@ -1,4 +1,6 @@
-{
+const reqFromEnv = (val, def) => process.env[val] || def
+
+module.exports = {
   "development": {
     "username": "troublemaker",
     "password": "troublepass",
@@ -15,15 +17,15 @@
     "dialect": "postgres"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
+    "username": reqFromEnv('DB_USER'),
+    "password": reqFromEnv('DB_PASS'),
+    "database": reqFromEnv('DB_NAME'),
+    "host": reqFromEnv('DB_HOST'),
     "dialect": "postgres"
   },
-  "ONEAUTH": {
+  "ONEAUTH": reqFromEnv("ONEAUTH", {
     "clientID": "2636937167",
     "clientSecret": "EphV9Fx8ZdCfmMAVZfJsUqEtvNVDTdqNcpiInuQ0Y4cmq2ZDMHqiQBBC9sUtazPS",
     "callbackURL": "http://localhost:4200/callback"
-  }
+  })
 }

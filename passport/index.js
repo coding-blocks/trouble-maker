@@ -5,7 +5,7 @@ const BearerStrategy = require('passport-http-bearer').Strategy;
 const v4 = require('uuid/v4')
 
 const DB = require('../models')
-const config = require('../config/config.json')
+const config = require('../config/config')
 
 passport.serializeUser(function(user, done) {
   done(null, user);

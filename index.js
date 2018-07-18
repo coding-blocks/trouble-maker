@@ -1,5 +1,4 @@
 const express = require('express')
-const exphbs = require('express-handlebars')
 const morgan = require('morgan')
 
 
@@ -7,7 +6,7 @@ const passport = require('./passport')
 const session = require('express-session')
 
 const app = express()
-const config = require('./config/config.json')
+const config = require('./config/config')
 const DB = require('./models')
 const routes = require('./routes')
 
