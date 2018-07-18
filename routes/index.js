@@ -4,10 +4,7 @@ const cors = require('cors')
 
 const Router = require('express').Router()
 
-Router.use(cors({
-  origin: 'http://localhost:4200',
-  credentials: true
-}))
+Router.use(cors())
 
 Router.use('/api', Api)
 
