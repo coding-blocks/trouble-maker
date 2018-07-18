@@ -21,7 +21,7 @@ You will need the following things properly installed on your computer.
 ## Setup For Development Environment
 
 * `yarn run sq` to configure the project.
-* Create a postgres user with the name 'troublemaker' and a database with the same name, as mentioned in `config/config.js`. To know more about how to create a postgres user and database, check out this [article](https://medium.com/coding-blocks/creating-user-database-and-adding-access-on-postgresql-8bfcd2f4a91e)
+* Create a postgres user with the name 'troublemaker' and a database with the same name, as mentioned in `config/config.js`.
 * `yarn run sq db:migrate` to run all the migrations. You now have all the relations in your database
 * `yarn run sq db:seed:all` to run all the seed files. You now have a dummy user in your database
 
