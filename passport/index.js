@@ -57,7 +57,7 @@ passport.use(new BearerStrategy(async function (token, cb) {
   if(apiKey) {
     cb(null, apiKey.user)
   } else {
-    cb(new Error('Invalid Token'))
+    cb(null, false)
   }
 }))
 
