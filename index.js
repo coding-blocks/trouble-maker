@@ -16,6 +16,10 @@ app.use(require('body-parser').json({
   limit: '100mb',
   type: 'application/vnd.api+json'
 }));
+app.use(require('body-parser').json({
+  limit: '100mb',
+  type: 'application/json'
+}));
 app.use(session({
   secret: 'inthepromiseblouse',
   resave: true,
