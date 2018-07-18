@@ -23,9 +23,9 @@ module.exports = {
     "host": reqFromEnv('DB_HOST'),
     "dialect": "postgres"
   },
-  "ONEAUTH": reqFromEnv("ONEAUTH", {
-    "clientID": "2636937167",
-    "clientSecret": "EphV9Fx8ZdCfmMAVZfJsUqEtvNVDTdqNcpiInuQ0Y4cmq2ZDMHqiQBBC9sUtazPS",
-    "callbackURL": "http://localhost:4200/callback"
-  })
+  "ONEAUTH": {
+    "clientID": reqFromEnv("ONEAUTH_CLIENTID", "2636937167"),
+    "clientSecret": reqFromEnv("ONEAUTH_CLIENTSECRET", "EphV9Fx8ZdCfmMAVZfJsUqEtvNVDTdqNcpiInuQ0Y4cmq2ZDMHqiQBBC9sUtazPS"),
+    "callbackURL": reqFromEnv("ONEAUTH_CALLBACKURL", "http://localhost:4200/callback")
+  }
 }
