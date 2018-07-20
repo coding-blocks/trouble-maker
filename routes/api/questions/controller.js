@@ -99,9 +99,6 @@ class QuestionsController extends BaseController {
 
     const { score, correctlyAnswered, incorrectlyAnswered } = U.getScore(markedChoices, correctChoices, question.choices)
 
-    console.log({
-      score
-    })
     res.json({
       score,
       correctlyAnswered,
