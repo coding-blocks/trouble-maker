@@ -11,7 +11,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     positiveWeight: {
       type: DataTypes.INTEGER,
-      allowNull: true
+      allowNull: true,
+      defaultValue: 1,
     },
     negativeWeight: {
       type: DataTypes.INTEGER,

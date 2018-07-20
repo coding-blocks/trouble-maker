@@ -21,4 +21,6 @@ Router.delete('/:id', controller.handleDeleteById)
 Router.get('/:id/answers', controller.handleGetAnswers)
 Router.patch('/:id/answers', controller.handleUpdateAnswers)
 
+Router.post('/:id/submit', controller.submitQuestion)
+
 module.exports = Router

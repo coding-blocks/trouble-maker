@@ -20,6 +20,7 @@
     "passport-http-bearer": "^1.0.1",
     "passport-oneauth": "^1.2.5",
     "pg": "^7.4.3",
+    "ramda": "^0.25.0",
     "sequelize": "^4.1.0",
     "sequelize-cli": "^4.0.0",
     "uuid": "^3.3.2"
