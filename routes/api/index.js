@@ -7,7 +7,7 @@ const Router = require('express').Router()
 Router.use('/questions', questions)
 Router.use('/choices', choices)
 Router.use('/users', users)
-Router.use('/quiz',quiz)
+Router.use('/quizzes', quiz)
 
 
 module.exports = Router

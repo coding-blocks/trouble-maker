@@ -1,7 +1,7 @@
 const BaseController = require('./controller')
 const routes = require('express').Router()
 const DB = require('../../../models')
-const controller = new BaseController(DB.quiz)
+const controller = new BaseController(DB.quizzes)
 
 routes.get('/', controller.handleQuery)
 routes.get('/:id',controller.handleQueryById)
@@ -10,6 +10,6 @@ routes.patch('/:id', controller.handleUpdateById)
 routes.delete('/:id', controller.handleDeleteById)
 
 // TODO: write the handleSubmit function in controller.
-routes.post('/:id/submit',controller.handleSubmit)
+//routes.post('/:id/submit',controller.handleSubmit)
 
 module.exports = routes;

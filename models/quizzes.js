@@ -1,9 +1,10 @@
 'use strict'
 module.exports = (sequelize,DataTypes) => {
-    let quiz = sequelize.define('quiz',{
+    let quizzes = sequelize.define('quizzes',{
         id:{
             type:DataTypes.INTEGER,
-            primaryKey:true
+            primaryKey: true,
+            autoIncrement: true
         },
         title:{
             type:DataTypes.STRING,
@@ -35,9 +36,10 @@ module.exports = (sequelize,DataTypes) => {
         }
     },{})
     
-    quiz.associate = function (models) {
-        quiz.belongsTo(models.users,{foreignKey: 'addedById'})
-        quiz.hasMany(models.questions)
+    quizzes.associate = function (models) {
+        quizzes.belongsTo(models.users,{foreignKey: 'addedById'})
+        quizzes.belongsToMany(models.questions, {through: models.quizQuestions})
+        models.questions.belongsToMany(quizzes, {through: models.quizQuestions})
     }
-    return quiz;
+    return quizzes;
 }
