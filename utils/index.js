@@ -23,8 +23,8 @@ const isContainedIn = (a, b) => R.intersection(a, b).length === a.length
   markedChoices = Array of ids
   correctChoices = Array of Sequelize model instances of correctChoices
 */
-const getScore = (markedChoices, correctChoices, possibleChoices) => {
-  const correctChoiceIds = correctChoices.map(_ => _.id)
+const getScore = (markedChoices, correctChoiceIds, possibleChoices) => {
+  // const correctChoiceIds = correctChoices.map(_ => _.id)
 
   // is the id in the correctChoiceIds
   const isCorrect = R.contains(R.__, correctChoiceIds)
@@ -32,7 +32,7 @@ const getScore = (markedChoices, correctChoices, possibleChoices) => {
   const correctlyAnsweredIds = markedChoices.filter(isCorrect)
   const incorrectlyAnsweredIds = markedChoices.filter(el => !isCorrect(el))
 
-  const correctlyAnswered = correctChoices.filter(choice => R.contains(choice.id, correctlyAnsweredIds))
+  const correctlyAnswered = possibleChoices.filter(choice => R.contains(choice.id, correctlyAnsweredIds))
   const incorrectlyAnswered = possibleChoices.filter(choice => R.contains(choice.id, incorrectlyAnsweredIds))
 
   let score = correctlyAnswered.reduce((acc, c) => acc + c.positiveWeight, 0)

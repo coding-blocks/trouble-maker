@@ -89,15 +89,15 @@ class QuestionsController extends BaseController {
       })
     }
 
-    const correctChoices = await DB.choices.findAll({
-      where: {
-        id: {
-          $in: question.correctAnswers
-        }
-      }
-    })
+    // const correctChoices = await DB.choices.findAll({
+    //   where: {
+    //     id: {
+    //       $in: question.correctAnswers
+    //     }
+    //   }
+    // })
 
-    const { score, correctlyAnswered, incorrectlyAnswered } = U.getScore(markedChoices, correctChoices, question.choices)
+    const { score, correctlyAnswered, incorrectlyAnswered } = U.getScore(markedChoices, U.parseIntArray(question.correctAnswers), question.choices)
 
     res.json({
       score,
