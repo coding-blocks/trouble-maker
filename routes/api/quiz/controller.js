@@ -45,9 +45,12 @@ class QuizController extends BaseController {
         return ;
       }
 
+      // we only interested in POJO
       question = question.get({plain: true})
 
+      // parse the array as integer
       const markedChoices = U.parseIntArray(markedQuestion.markedChoices)
+      
       // check if the markedChoice are contained in possibleChoices
       const areMarkedChoiceValid = U.isContainedIn(markedChoices, question.choices.map(_ => _.id))
       
