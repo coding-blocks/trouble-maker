@@ -6,13 +6,11 @@ module.exports = function (included = [], type, config) {
   if (type === 'deserialize') {
     return {
       keyForAttribute: 'camelCase',
-      // users: {
-      //   valueForRelationship (relationship) {
-      //     return {
-      //       id: relationship.id
-      //     }
-      //   }
-      // }
+      questions: {
+        valueForRelationship (relationship) {
+          return relationship.id
+        }
+      }
     }
   }
 
