@@ -13,6 +13,7 @@
     "cors": "^2.8.4",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
+    "express-winston": "2.4.0",
     "i": "^0.3.6",
     "jsonapi-serializer": "^3.5.6",
     "morgan": "^1.9.0",
@@ -25,6 +26,8 @@
     "raven": "^2.6.3",
     "sequelize": "^4.1.0",
     "sequelize-cli": "^4.0.0",
-    "uuid": "^3.3.2"
+    "uuid": "^3.3.2",
+    "winston": "^2.4.0",
+    "winston-graylog2": "^1.0.0"
   }
 }

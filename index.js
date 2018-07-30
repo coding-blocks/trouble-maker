@@ -9,6 +9,7 @@ const app = express()
 const config = require('./config/config')
 const DB = require('./models')
 const routes = require('./routes')
+const { expressLogger } = require('./utils/logger')
 
 Raven.config(config.SENTRY_DSN).install()
 
@@ -26,6 +27,7 @@ app.use(morgan('tiny'))
 app.use(passport.initialize())
 app.use(passport.session())
 
+app.use(expressLogger)
 app.use(routes)
 
 app.use(function onError(err, req, res, next) {
