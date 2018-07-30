@@ -28,5 +28,5 @@ module.exports = {
     "clientSecret": reqFromEnv("ONEAUTH_CLIENTSECRET", "EphV9Fx8ZdCfmMAVZfJsUqEtvNVDTdqNcpiInuQ0Y4cmq2ZDMHqiQBBC9sUtazPS"),
     "callbackURL": reqFromEnv("ONEAUTH_CALLBACKURL", "http://localhost:4200/callback")
   },
-  "SENTRY_DSN": reqFromEnv("SENTRY_DSN", "xyz")
+  "SENTRY_DSN": reqFromEnv("SENTRY_DSN", "http://totallyWrongDSN:WillNotWork@sentry.somedomain.com/1")
 }

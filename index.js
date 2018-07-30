@@ -3,7 +3,6 @@ const morgan = require('morgan')
 const Raven = require('raven')
 
 const passport = require('./passport')
-const session = require('express-session')
 
 const app = express()
 const config = require('./config/config')
@@ -21,12 +20,7 @@ app.use(require('body-parser').json({
   limit: '100mb',
   type: 'application/json'
 }));
-app.use(session({
-  secret: 'inthepromiseblouse',
-  resave: true,
-  saveUninitialized: true,
-  // cookie: { secure: true } // for production only
-}))
+
 app.use(morgan('tiny'))
 app.use(passport.initialize())
 app.use(passport.session())
