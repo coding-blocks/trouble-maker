@@ -36,7 +36,7 @@ class QuizController extends BaseController {
     })
     const results = markedQuestions.map(markedQuestion => {
       // assert that this markedQuestion belongs to this quiz
-      let question = quiz.questions.find(el => el.id === markedQuestion.id)
+      let question = quiz.questions.find(el => el.id == markedQuestion.id)
       
       if (!question) {
         res.status(400).json({
@@ -74,6 +74,7 @@ class QuizController extends BaseController {
       res.json({
         id: quiz.id,
         type: 'quiz',
+        score: results.reduce((acc, val) => acc + val.score, 0),
         questions: results
       })
    
