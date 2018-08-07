@@ -31,18 +31,25 @@ class QuizController extends BaseController {
     const quiz = await this._model.findById(req.params.id, {
       include: {
         model: DB.questions,
-        include: DB.choices
+        include: {
+          model: DB.choices,
+          attributes: ['id', 'title']
+        }
       }
     })
-    const results = markedQuestions.map(markedQuestion => {
-      // assert that this markedQuestion belongs to this quiz
-      let question = quiz.questions.find(el => el.id == markedQuestion.id)
-      
-      if (!question) {
-        res.status(400).json({
-          error: `Question doesnot belongs to this quiz`
-        })
-        return ;
+    
+    const results = quiz.questions.map(question => {
+      const markedQuestion = markedQuestions.find(el => el.id == question.id)
+
+      if (!markedQuestion) {
+        //user marked no response for this question
+        return {
+          id: question.id,
+          score: 0,
+          correctlyAnswered: [],
+          incorrectlyAnswered: [],
+          answers: req.query.showAnswers ? question.correctAnswers : undefined
+        }
       }
 
       // we only interested in POJO
