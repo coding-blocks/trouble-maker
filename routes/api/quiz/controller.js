@@ -26,7 +26,7 @@ class QuizController extends BaseController {
   // }
 
   async handleSubmit (req, res, next) {
-    const markedQuestions =  req.body.questions
+    let markedQuestions =  req.body.questions
 
     const quiz = await this._model.findById(req.params.id, {
       include: {
@@ -37,6 +37,11 @@ class QuizController extends BaseController {
         }
       }
     })
+
+    if (!Array.isArray(markedQuestions)) {
+      //user has not marked any choice
+      markedQuestions = [] 
+    }
     
     const results = quiz.questions.map(question => {
       const markedQuestion = markedQuestions.find(el => el.id == question.id)
