@@ -58,7 +58,7 @@ class QuestionsController extends BaseController {
 
   */
   async submitQuestion (req, res) {
-    let { markedChoices } = req.body
+    let { correctAnswers, markedChoices } = req.body
     
     if (!markedChoices || !Array.isArray(markedChoices)) {
       return res.status(400).json({
@@ -76,11 +76,16 @@ class QuestionsController extends BaseController {
     
 
     const question = await this._model.findById(req.params.id, {
+      attributes: ['multipleCorrect'],
       include: DB.choices
     })
 
     if (!question) {
       return res.sendStatus(404)
+    }
+
+    if(!question.multipleCorrect && correctAnswers.length>1){
+      return res.sendStatus(400);
     }
 
     const possibleChoices = question.choices.map(_ => _.id)    
