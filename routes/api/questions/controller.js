@@ -76,7 +76,6 @@ class QuestionsController extends BaseController {
     
 
     const question = await this._model.findById(req.params.id, {
-      attributes: ['multipleCorrect'],
       include: DB.choices
     })
 
