@@ -33,7 +33,7 @@ class QuizController extends BaseController {
         model: DB.questions,
         include: {
           model: DB.choices,
-          attributes: ['id', 'title', 'positiveWeight', 'negativeWeight']
+          attributes: ['id', 'title', 'positiveWeight', 'negativeWeight, multipleCorrect']
         }
       }
     })
@@ -62,6 +62,13 @@ class QuizController extends BaseController {
 
       // parse the array as integer
       const markedChoices = U.parseIntArray(markedQuestion.markedChoices)
+      
+      // check whether question is multiple choice
+      if(!question.multipleCorrect && markedChoices.length > 1){
+        return res.status(400).json({
+          error: 'This is a single choice question!'
+        })
+      }
       
       // check if the markedChoice are contained in possibleChoices
       const areMarkedChoiceValid = U.isContainedIn(markedChoices, question.choices.map(_ => _.id))

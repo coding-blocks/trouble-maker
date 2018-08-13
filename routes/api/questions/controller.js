@@ -14,12 +14,16 @@ class QuestionsController extends BaseController {
     const { id } = req.params
 
     const question = await this._model.findById(id, {
-      attributes: ['id', 'correctAnswers']
+      attributes: ['id', 'correctAnswers', 'multipleCorrect']
     })
 
     if (!question) {
       // no question of this id
       res.sendStatus(404)
+    }
+    
+    if (!question.multipleCorrect && correctAnswers.length > 1){
+      return res.sendStatus(400);
     }
 
     res.json(question.get({plain: true}))
@@ -28,6 +32,14 @@ class QuestionsController extends BaseController {
   async handleUpdateAnswers (req, res) {
     const { id } = req.params
     const { correctAnswers } = req.body
+
+    const question = await this._model.findById(id, {
+      attributes: ['multipleCorrect']
+    })
+    
+    if(!question.multipleCorrect && correctAnswers.length > 1){
+      return res.sendStatus(400);
+    }
 
     for (let el of correctAnswers) {
       if (!el || isNaN(+el)) {
@@ -53,7 +65,7 @@ class QuestionsController extends BaseController {
 
   */
   async submitQuestion (req, res) {
-    let { markedChoices } = req.body
+    let { correctAnswers, markedChoices } = req.body
     
     if (!markedChoices || !Array.isArray(markedChoices)) {
       return res.status(400).json({
@@ -77,6 +89,10 @@ class QuestionsController extends BaseController {
     if (!question) {
       return res.sendStatus(404)
     }
+    
+    if(!question.multipleCorrect && (markedChoices.length > 1 || correctAnswers.length > 1)){
+      return res.sendStatus(400);
+    }
 
     const possibleChoices = question.choices.map(_ => _.id)    
 
@@ -97,7 +113,7 @@ class QuestionsController extends BaseController {
     //   }
     // })
 
-    const { score, correctlyAnswered, incorrectlyAnswered } = U.getScore(markedChoices, U.parseIntArray(question.correctAnswers), question.choices)
+    const { score, correctlyAnswered, incorrectlyAnswered } = U.getScore(markedChoices, U.parseIntArray(question.correctAnswers), possibleChoices)
 
     res.json({
       score,
