@@ -28,10 +28,10 @@ class QuestionsController extends BaseController {
   async handleUpdateAnswers (req, res) {
     const { id } = req.params
     const { correctAnswers } = req.body
-    const multipleCorrect = await this._model.findById(id, {
+    const question = await this._model.findById(id, {
       attributes: ['multipleCorrect']
     })
-    if(!multipleCorrect && correctAnswers.length>1){
+    if(!question.multipleCorrect && correctAnswers.length>1){
       return res.sendStatus(400);
     }
     for (let el of correctAnswers) {
