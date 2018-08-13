@@ -18,6 +18,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.ARRAY(DataTypes.BIGINT),
       allowNull: false,
       defaultValue: []
+    },
+    multipleCorrect:{
+      type:DataTypes.BOOLEAN,
+      allowNull:false,
+      defaultValue:false
     }
   }, {});
   questions.associate = function(models) {
