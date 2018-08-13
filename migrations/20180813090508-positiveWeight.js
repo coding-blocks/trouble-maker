@@ -1,7 +1,11 @@
 'use strict';
 
 module.exports = {
-  up: (queryInterface, Sequelize) => {
+  up: (Q, Sequelize) => {
+    return [Q.changeColumn('choices','positiveWeight', {
+      type: Sequelize.INTEGER,
+      defaultValue: 0
+    })]
     /*
       Add altering commands here.
       Return a promise to correctly handle asynchronicity.
@@ -12,6 +16,10 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
+    return [Q.changeColumn('choices','positiveWeight', {
+      type: Sequelize.INTEGER,
+      defaultValue: null
+    })]
     /*
       Add reverting commands here.
       Return a promise to correctly handle asynchronicity.
@@ -21,5 +29,3 @@ module.exports = {
     */
   }
 };
-
-
