@@ -4,18 +4,14 @@ const Question = require('../models').questions
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.addColumn('questions', 'multiCorrect', {
-      
       type: Sequelize.BOOLEAN,
       allowNull: true
-      
     }).then(() => {
         return Question.findAll()
     }).then((questions) => {
         return Promise.all(
-        
           questions.map((question) => {
             let correctAnswersLength = 0
-            
             if (question.correctAnswers && Array.isArray(question.correctAnswers)) {
               correctAnswerLength = question.correctAnswers.length
             }
@@ -30,7 +26,6 @@ module.exports = {
         defaultValue: false
       })]
     })
-    
     /*
       Add altering commands here.
       Return a promise to correctly handle asynchronicity.
@@ -38,7 +33,6 @@ module.exports = {
       return queryInterface.createTable('questions', { id: Sequelize.INTEGER });
     */
   },
-  
   down: (queryInterface, Sequelize) => {
     return queryInterface.removeColumn('questions', 'multiCorrect')
     /*

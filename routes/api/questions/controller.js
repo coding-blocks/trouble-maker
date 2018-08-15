@@ -38,7 +38,9 @@ class QuestionsController extends BaseController {
     })
     
     if(!question.multipleCorrect && correctAnswers.length > 1){
-      return res.sendStatus(400);
+      return res.status(400).json({
+        error: 'Correct answers array length should be 1 for single correct answers.'
+      });
     }
 
     for (let el of correctAnswers) {
@@ -65,7 +67,7 @@ class QuestionsController extends BaseController {
 
   */
   async submitQuestion (req, res) {
-    let { correctAnswers, markedChoices } = req.body
+    let { markedChoices } = req.body
     
     if (!markedChoices || !Array.isArray(markedChoices)) {
       return res.status(400).json({
@@ -90,7 +92,7 @@ class QuestionsController extends BaseController {
       return res.sendStatus(404)
     }
     
-    if(!question.multipleCorrect && (markedChoices.length > 1 || correctAnswers.length > 1)){
+    if(!question.multipleCorrect && markedChoices.length > 1){
       return res.sendStatus(400);
     }
 
@@ -113,7 +115,7 @@ class QuestionsController extends BaseController {
     //   }
     // })
 
-    const { score, correctlyAnswered, incorrectlyAnswered } = U.getScore(markedChoices, U.parseIntArray(question.correctAnswers), possibleChoices)
+    const { score, correctlyAnswered, incorrectlyAnswered } = U.getScore(markedChoices, U.parseIntArray(question.correctAnswers), question.choices)
 
     res.json({
       score,
