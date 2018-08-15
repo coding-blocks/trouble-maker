@@ -32,7 +32,7 @@ class QuestionsController extends BaseController {
       attributes: ['multipleCorrect']
     })
     if(!question.multipleCorrect && correctAnswers.length>1){
-      return res.sendStatus(400);
+      return res.status(400).send({"message": "Question has only one correct answer."});
     }
     for (let el of correctAnswers) {
       if (!el || isNaN(+el)) {
