@@ -58,7 +58,7 @@ class QuestionsController extends BaseController {
 
   */
   async submitQuestion (req, res) {
-    let { correctAnswers, markedChoices } = req.body
+    let { markedChoices } = req.body
     
     if (!markedChoices || !Array.isArray(markedChoices)) {
       return res.status(400).json({
@@ -83,7 +83,7 @@ class QuestionsController extends BaseController {
       return res.sendStatus(404)
     }
 
-    if(!question.multipleCorrect && correctAnswers.length>1){
+    if(!question.multipleCorrect && markedChoices.length>1){
       return res.sendStatus(400);
     }
 
