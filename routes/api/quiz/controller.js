@@ -33,7 +33,7 @@ class QuizController extends BaseController {
         model: DB.questions,
         include: {
           model: DB.choices,
-          attributes: ['id', 'title', 'positiveWeight', 'negativeWeight', 'multiCorrect']
+          attributes: ['id', 'title', 'positiveWeight', 'negativeWeight']
         }
       }
     })
