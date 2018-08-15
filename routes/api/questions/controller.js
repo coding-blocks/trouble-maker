@@ -28,7 +28,12 @@ class QuestionsController extends BaseController {
   async handleUpdateAnswers (req, res) {
     const { id } = req.params
     const { correctAnswers } = req.body
-
+    const question = await this._model.findById(id, {
+      attributes: ['multipleCorrect']
+    })
+    if(!question.multipleCorrect && correctAnswers.length>1){
+      return res.status(400).send({"message": "Question has only one correct answer."});
+    }
     for (let el of correctAnswers) {
       if (!el || isNaN(+el)) {
         return res.sendStatus(400)
@@ -76,6 +81,10 @@ class QuestionsController extends BaseController {
 
     if (!question) {
       return res.sendStatus(404)
+    }
+
+    if(!question.multipleCorrect && markedChoices.length>1){
+      return res.sendStatus(400);
     }
 
     const possibleChoices = question.choices.map(_ => _.id)    
