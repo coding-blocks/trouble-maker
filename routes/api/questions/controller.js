@@ -34,7 +34,9 @@ class QuestionsController extends BaseController {
     })
 
     if((!question.multiCorrect) && (correctAnswers.length > 1)){
-      res.sendStatus(400)
+      res.sendStatus(400).json({
+        error: 'correctAnswers Array length should be One for single choice question'
+      })
       return
     }
 
