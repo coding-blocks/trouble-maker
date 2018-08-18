@@ -29,6 +29,17 @@ class QuestionsController extends BaseController {
     const { id } = req.params
     const { correctAnswers } = req.body
 
+    let question = await this._model.findById(id, {
+      attributes: ['multiCorrect']
+    })
+
+    if((!question.multiCorrect) && (correctAnswers.length > 1)){
+      res.sendStatus(400).json({
+        error: 'correctAnswers Array length should be One for single choice question'
+      })
+      return
+    }
+
     for (let el of correctAnswers) {
       if (!el || isNaN(+el)) {
         return res.sendStatus(400)
@@ -76,6 +87,11 @@ class QuestionsController extends BaseController {
 
     if (!question) {
       return res.sendStatus(404)
+    }
+
+    if((!question.multiCorrect) && (markedChoices.length > 1)){
+      res.sendStatus(400)
+      return
     }
 
     const possibleChoices = question.choices.map(_ => _.id)    
