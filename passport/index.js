@@ -25,8 +25,7 @@ async function (acessToken, refreshToken, profile, cb) {
     firstname: profile._json.firstname,
     lastname: profile._json.lastname,
     email: profile.email,
-    oneauth_id: profile.id,
-    role: profile.role === 'admin' || process.env.NODE_ENV === 'development' ? 'ADMIN': 'USER'
+    oneauth_id: profile.id
   })
 
   const user = await DB.users.findOne({
