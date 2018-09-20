@@ -3,7 +3,7 @@ const reqFromEnv = (val, def) => process.env[val] || def
 module.exports = {
   "development": {
     "username": "troublemaker",
-    "password": "troublepass",
+    "password": "willNotWork",
     "database": "troublemaker",
     "host": "127.0.0.1",
     "dialect": "postgres",
