@@ -23,13 +23,13 @@ class QuizController extends BaseController {
     const questionsToAdd = R.difference(questions, oldQuestions)
     const questionToRemove = R.difference(oldQuestions, questions)
 
-    await quiz.addQuestions(questionsToAdd, {
+    const addQuestions = quiz.addQuestions(questionsToAdd, {
       through: {
         updatedById: req.user.id
       }
     })
 
-    await DB.quizQuestions.destroy({
+    const removeQuestions = DB.quizQuestions.destroy({
       where:{
         quizId: quiz.id,
         questionId: {
@@ -38,7 +38,16 @@ class QuizController extends BaseController {
       }
     })
 
-    super.handleUpdateById(...arguments)
+    const setUpdatedBy = DB.quizQuestions.update({
+      updatedById: req.user.id
+    }, {
+      where: {
+        quizId: quiz.id
+      }
+    })
+
+    await Promise.all([addQuestions, removeQuestions, setUpdatedBy])
+    return super.handleUpdateById(...arguments)
   }
 
   // body : {
