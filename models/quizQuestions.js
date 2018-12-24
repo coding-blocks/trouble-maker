@@ -6,6 +6,12 @@ module.exports = (sequelize,DataTypes) => {
             primaryKey:true,
             autoIncrement: true
         }
-    },{})
+    },{
+        paranoid: true
+    })
+
+    quizQuesions.associate = function (models) {
+        quizQuesions.belongsTo(models.users,{foreignKey: 'updatedById'})
+    }
     return quizQuesions;
 }

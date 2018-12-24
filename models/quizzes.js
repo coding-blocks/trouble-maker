@@ -34,12 +34,14 @@ module.exports = (sequelize,DataTypes) => {
             type: DataTypes.DATE,
             allowNull: false
         }
-    },{})
+    },{
+        paranoid: true
+    })
     
     quizzes.associate = function (models) {
         quizzes.belongsTo(models.users,{foreignKey: 'addedById'})
+        quizzes.belongsTo(models.users,{foreignKey: 'updatedById'})
         quizzes.belongsToMany(models.questions, {through: models.quizQuestions})
-        models.questions.belongsToMany(quizzes, {through: models.quizQuestions})
     }
     return quizzes;
 }

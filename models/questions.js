@@ -19,10 +19,16 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: []
     }
-  }, {});
+  }, {
+    paranoid: true
+  });
   questions.associate = function(models) {
     questions.belongsTo(models.users, {foreignKey: 'createdById'})
     questions.hasMany(models.choices)
+    questions.belongsTo(models.users,{foreignKey: 'updatedById'})
+    questions.belongsToMany(models.quizzes, {through: models.quizQuestions})
+
+
   };
   return questions;
 };

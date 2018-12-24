@@ -1,6 +1,7 @@
 const BaseController = require('../../../framework/Controller.class')
 const DB = require('../../../models')
 const U = require('../../../utils')
+const R = require('ramda')
 
 class QuizController extends BaseController {
   constructor () {
@@ -12,9 +13,31 @@ class QuizController extends BaseController {
 
   async handleUpdateById (req, res) {
     const modelObj = await this.deserialize(req.body)
-    const questions = modelObj.questions || []
-    const quiz = await this._model.findById(req.params.id)
-    await quiz.setQuestions(questions)
+    let questions = modelObj.questions || []
+    const quiz = await this._model.findById(req.params.id, {
+      include: DB.questions
+    })
+    const oldQuestions = quiz.questions.map(q => q.id)
+
+    questions = questions.map(q => +q)
+    const questionsToAdd = R.difference(questions, oldQuestions)
+    const questionToRemove = R.difference(oldQuestions, questions)
+
+    await quiz.addQuestions(questionsToAdd, {
+      through: {
+        updatedById: req.user.id
+      }
+    })
+
+    await DB.quizQuestions.destroy({
+      where:{
+        quizId: quiz.id,
+        questionId: {
+          $in: questionToRemove
+        }
+      }
+    })
+
     super.handleUpdateById(...arguments)
   }
 

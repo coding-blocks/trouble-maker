@@ -158,6 +158,10 @@ class Controller {
     async handleCreate(req, res, next) {
       try {
         const modelObj = await this.deserialize(req.body)
+
+        // set createdBy Id
+        modelObj.createdById = req.user.id
+
         const dbObj = await this._model.create(modelObj)
         const result = await this._model.findById(dbObj.id, {
           include: this.generateIncludeStatement()
@@ -174,6 +178,10 @@ class Controller {
     async handleUpdateById(req, res, next) {
       try {  
         const modelObj = await this.deserialize(req.body)
+
+        // set updatedBy
+        modelObj.updatedById = req.user.id
+
         await this._model.update(modelObj, {
           where: {
             id: req.params.id
