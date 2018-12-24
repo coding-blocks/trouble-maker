@@ -14,14 +14,16 @@ module.exports = {
     "password": null,
     "database": "database_test",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "logging": false
   },
   "production": {
     "username": reqFromEnv('DB_USER'),
     "password": reqFromEnv('DB_PASS'),
     "database": reqFromEnv('DB_NAME'),
     "host": reqFromEnv('DB_HOST'),
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "logging": false
   },
   "ONEAUTH": {
     "clientID": reqFromEnv("ONEAUTH_CLIENTID", "2636937167"),
