@@ -168,7 +168,6 @@ Question,1
   x = 2;
   return [x, y, f()];
 })(1)
-view rawgistfile1.js hosted with ❤ by GitHub
  [2, 1, 1]
  [2, undefined, 1]
  [2, 1, 2]
@@ -183,7 +182,6 @@ Question,2
     (() => this.x)()
   ]
 }).call({ x: 'outer' });
-view rawgistfile1.js hosted with ❤ by GitHub
  ['inner', 'outer']
  ['outer', 'outer']
  [undefined, undefined]
