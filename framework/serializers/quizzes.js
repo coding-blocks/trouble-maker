@@ -21,6 +21,12 @@ module.exports = function (included = [], type, config) {
         return record.pagination
       }
     },
+    dataMeta: {
+      'total-questions': function(record, current) {
+        const questions = current.questions || []
+        return questions.length
+      }
+    },
     user: {
       ref: 'id',
       attributes: ['firstname', 'lastname', 'email', 'role'],
