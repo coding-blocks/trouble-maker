@@ -20,7 +20,8 @@ You will need the following things properly installed on your computer.
 
 ## Setup For Development Environment
 
-* Create a postgres user with the name 'troublemaker' and a database with the same name, as mentioned in `config/config.js`.
+* `yarn run sq db:create` To create a postgres user with the name 'troublemaker' and a database with the same name, as mentioned in `config/config.js`.     
+* run `node index.js` ( for sync db ) and open new tab to run bellow command
 * `yarn run sq db:seed:all` to run all the seed files. You now have a dummy user in your database
 
 ## Further Reading / Useful Links
