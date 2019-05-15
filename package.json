@@ -7,6 +7,7 @@
     "sq": "./node_modules/.bin/sequelize"
   },
   "dependencies": {
+    "@coding-blocks/express-jsonapi-controller": "^1.0.0",
     "body-parser": "^1.18.3",
     "connect-ensure-login": "^0.1.1",
     "cookie-parser": "^1.4.3",

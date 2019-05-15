@@ -4,8 +4,9 @@ const DB = require('../../../models')
 const passport = require('../../../passport/index')
 
 const { adminOnly } = require('../../../passport/middlewares')
+const serializer = require('../../../framework/serializers/questions')
 
-const controller = new BaseController(DB.questions)
+const controller = new BaseController(DB.questions, DB, serializer)
 
 Router.use(passport.authenticate('bearer', {session: false}), adminOnly)
 
