@@ -1,4 +1,4 @@
-const BaseController = require('../../../framework/Controller.class')
+const {  Controller:BaseController } = require('@coding-blocks/express-jsonapi-controller')
 const DB = require('../../../models')
 const U = require('../../../utils')
 

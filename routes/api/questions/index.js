@@ -5,6 +5,7 @@ const passport = require('../../../passport/index')
 
 const { adminOnly } = require('../../../passport/middlewares')
 
+
 const controller = new BaseController(DB.questions)
 
 Router.use(passport.authenticate('bearer', {session: false}), adminOnly)
