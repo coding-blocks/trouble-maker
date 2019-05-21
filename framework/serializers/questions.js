@@ -12,12 +12,19 @@ module.exports = function (included = [], type, config) {
             id: relationship.id
           }
         }
+      },
+      tags: {
+        valueForRelationship (relationship) {
+          return {
+            id: relationship.id
+          }
+        }
       }
     }
   }
 
   const options = {
-    attributes: ['title', 'description', 'difficulty' ,'user', 'choices', 'createdBy'],
+    attributes: ['title', 'description', 'difficulty' ,'user', 'choices', 'tags', 'createdBy'],
     meta: {
       pagination: function (record) {
         return record.pagination
@@ -32,6 +39,11 @@ module.exports = function (included = [], type, config) {
       ref: 'id',
       attributes: ['title', 'description', 'positiveWeight' ,'negativeWeight', 'question'],
       included: included.includes('choices')
+    },
+    tags: {
+      ref: 'id',
+      ...require('./tags')([], 'serialize'),
+      included: included.includes('tags')
     },
     ...config
   }

@@ -8,7 +8,7 @@ module.exports = (Sequelize, DataTypes) => {
   }, { paranoid: true })
 
   tags.associate = function(models) {
-    tags.belongsTo(models.users,{foreignKey: 'createdBy'})
+    tags.belongsTo(models.users,{foreignKey: 'createdById'})
     tags.belongsToMany(models.questions, {through: models.question_tags})
   }
 

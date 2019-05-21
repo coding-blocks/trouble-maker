@@ -12,7 +12,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      createdBy: {
+      createdById: {
         type: Sequelize.INTEGER,
         allowNull: false
       },
