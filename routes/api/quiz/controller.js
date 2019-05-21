@@ -2,6 +2,7 @@ const BaseController = require('../../../framework/Controller.class')
 const DB = require('../../../models')
 const U = require('../../../utils')
 const R = require('ramda')
+const Sequelize = require('sequelize')
 
 class QuizController extends BaseController {
   constructor () {
@@ -9,6 +10,35 @@ class QuizController extends BaseController {
     new Array('handleSubmit').forEach(fn => {
       this[fn] = this[fn].bind(this)
     })
+  }
+
+  async handleQuery(req, res) {
+    try {
+      const {rows, count} = this.findAll(...arguments)
+      const includeModelNames = this.getIncludeModelNames(req)
+      const limit = this.generateLimitStatement(req)
+      const offset = this.generateOffsetStatement(req)
+      rows = rows.map( _ => _.get({plain: true}))
+      rows.map(async row => {
+        const res = await QuizQuestions.find({
+          attributes: [Sequelize.fn('count', Sequelize.col('id')), 'questions'],
+          where: {
+            quizId: row.id
+          }
+        })
+        row['total-questions'] = res.questions
+      })
+      rows.pagination = {
+          count,
+          currentOffset: offset,
+          nextOffset: offset + limit < count ? offset + limit : count,
+          prevOffset: offset - limit > 0 ? offset - limit : 0,
+      }
+      const result = this.serialize(rows, includeModelNames)
+      res.json(result)
+    } catch (err) {
+      this.handleError(err, res)
+    }
   }
 
   async handleUpdateById (req, res) {
