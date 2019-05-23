@@ -42,7 +42,7 @@ module.exports = function (included = [], type, config) {
     },
     tags: {
       ref: 'id',
-      ...require('./tags')([], 'serialize'),
+      attributes: ['name'],
       included: included.includes('tags')
     },
     ...config

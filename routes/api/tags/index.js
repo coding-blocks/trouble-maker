@@ -13,6 +13,5 @@ routes.get('/', controller.handleQuery)
 routes.get('/:id', controller.handleQueryById)
 routes.post('/', controller.handleCreate)
 routes.patch('/:id', controller.handleUpdateById)
-routes.delete('/:id', controller.handleDeleteById)
 
 module.exports = routes;

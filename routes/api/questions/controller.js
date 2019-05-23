@@ -10,6 +10,32 @@ class QuestionsController extends BaseController {
     this.submitQuestion = this.submitQuestion.bind(this)
   }
 
+  async handleUpdateById(req, res) {
+    try {  
+      const modelObj = await this.deserialize(req.body)
+
+      // set updatedBy
+      modelObj.updatedById = req.user.id
+
+      await DB.question_tags.bulkCreate(modelObj.tags.map(tag => ({
+        tagId: tag.id,
+        questionId: req.params.id
+      })))
+
+      await this._model.update(modelObj, {
+        where: {
+          id: req.params.id
+        }
+      })
+      const result = await this._model.findById(req.params.id, {
+        include: this.generateIncludeStatement()
+      })
+      res.json(this.serialize(result))
+    } catch (err) {
+      rrthis.handleError(err, res)
+    }
+  }
+
   async handleGetAnswers (req, res) {
     const { id } = req.params
 
