@@ -27,8 +27,7 @@ module.exports = (sequelize, DataTypes) => {
     questions.hasMany(models.choices)
     questions.belongsTo(models.users,{foreignKey: 'updatedById'})
     questions.belongsToMany(models.quizzes, {through: models.quizQuestions})
-
-
+    questions.belongsToMany(models.tags, {through: models.question_tags})
   };
   return questions;
 };
