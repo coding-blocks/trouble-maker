@@ -7,26 +7,36 @@ const Sequelize = require('sequelize')
 class QuizController extends BaseController {
   constructor () {
     super(...arguments)
-    new Array('handleSubmit').forEach(fn => {
+    new Array('handleSubmit', 'handleQueryById', 'handleQuery').forEach(fn => {
       this[fn] = this[fn].bind(this)
     })
   }
 
   async handleQuery(req, res) {
     try {
-      const {rows, count} = this.findAll(...arguments)
+      let {rows, count} = await this.findAll(...arguments)
       const includeModelNames = this.getIncludeModelNames(req)
       const limit = this.generateLimitStatement(req)
       const offset = this.generateOffsetStatement(req)
-      rows = rows.map( _ => _.get({plain: true}))
-      rows.map(async row => {
-        const res = await QuizQuestions.find({
-          attributes: [Sequelize.fn('count', Sequelize.col('id')), 'questions'],
-          where: {
-            quizId: row.id
+      let quizQuestionCounts = await DB.quizzes.findAll({
+        includeIgnoreAttributes: false,
+        attributes: [ 'id' ,[Sequelize.fn('count', Sequelize.col('questions->quizQuestions.id')), 'total']],
+        include: {
+          model: DB.questions,
+        },
+        where: {
+          id: {
+            $in: rows.map(q => q.id)
           }
-        })
-        row['total-questions'] = res.questions
+        },
+        raw: true,
+        group: ['quizzes.id']
+      })    
+      quizQuestionCounts = R.groupBy(obj => obj.id)(quizQuestionCounts)
+      rows = rows.map( _ => _.get({plain: true}))
+      rows = rows.map(row => {
+        row.totalQuestions = quizQuestionCounts[row.id][0].total
+        return row
       })
       rows.pagination = {
           count,
@@ -36,6 +46,23 @@ class QuizController extends BaseController {
       }
       const result = this.serialize(rows, includeModelNames)
       res.json(result)
+    } catch (err) {
+      this.handleError(err, res)
+    }
+  }
+
+  async handleQueryById(req, res, next) {
+    try {
+      const row = await this.findById(...arguments)
+      const includeModelNames = this.getIncludeModelNames(req)
+      const data = row.get({plain: true})
+      const count = await DB.quizQuestions.count({
+        where: {
+          quizId: row.id
+        }
+      })
+      data.totalQuestions = count
+      res.json(this.serialize(data, includeModelNames))
     } catch (err) {
       this.handleError(err, res)
     }

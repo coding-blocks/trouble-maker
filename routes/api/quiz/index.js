@@ -7,7 +7,7 @@ const { adminOnly } = require('../../../passport/middlewares')
 
 const controller = new BaseController(DB.quizzes)
 
-routes.use(passport.authenticate('bearer', {session: false}), adminOnly)
+// routes.use(passport.authenticate('bearer', {session: false}), adminOnly)
 
 routes.get('/', controller.handleQuery)
 routes.get('/:id', controller.handleQueryById)

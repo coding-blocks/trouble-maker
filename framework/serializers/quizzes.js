@@ -15,7 +15,7 @@ module.exports = function (included = [], type, config) {
   }
 
   const options = {
-    attributes: ['title', 'description', 'image', 'duration', 'maxAttempts', 'startDate', 'endDate', 'user', 'questions', 'total-questions'],
+    attributes: ['title', 'description', 'image', 'duration', 'maxAttempts', 'startDate', 'endDate', 'user', 'questions', 'totalQuestions'],
     meta: {
       pagination: function (record) {
         return record.pagination
