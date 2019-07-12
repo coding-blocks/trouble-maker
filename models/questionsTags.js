@@ -8,14 +8,6 @@ module.exports = (sequelize, DataTypes) => {
         }
     }, {
         paranoid: true
-    }, {
-        indexes: [{
-            fields: ['questionId', 'tagId'],
-            unique: true,
-            where: {
-                deletedAt: null
-            }
-        }]
     })
 
     questionsTags.associate = function(model) {
