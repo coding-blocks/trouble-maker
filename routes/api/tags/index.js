@@ -14,6 +14,7 @@ const controller = new BaseController(DB.tags, DB, serializer)
 
 routes.use(passport.authenticate('bearer', {session: false}), adminOnly)
 
-routes.get('/',controller.handleQuery)
+routes.get('/', controller.handleQuery)
+routes.post('/', controller.handleCreate)
 
 module.exports = routes

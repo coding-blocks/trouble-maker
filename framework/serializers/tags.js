@@ -10,6 +10,11 @@ module.exports = function(included = [], type,config) {
     if (type === 'deserialize') {
         return {
             keyForAttribute: 'camelCase',
+             users: {
+                valueForRelationship (relationship) {
+                    return relationship.id
+                }
+            },
             questions: {
                 valueForRelationship (relationship) {
                     return relationship.id
@@ -19,7 +24,7 @@ module.exports = function(included = [], type,config) {
     }
     
     const options = {
-        attributes: ['title', 'user', 'questions', 'createdById'],
+        attributes: ['title', 'user', 'questions', 'userId'],
         user: {
             ref: 'id',
             attributes: ['firstname', 'lastname', 'email', 'role'],
