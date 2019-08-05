@@ -12,7 +12,7 @@ module.exports = {
       
     });
     
-    await queryInterface.removeConstraint('questionsTags', 'questionsTags_questionId_tagId_key')
+    await queryInterface.removeConstraint('questionsTags', 'questionsTags_questionId_tagId_key').catch(() => {})
     
   },
   
