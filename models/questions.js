@@ -9,6 +9,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
       allowNull: true
     },
+    explanation: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
     difficulty: {
       type: DataTypes.INTEGER,
       allowNull: false,
