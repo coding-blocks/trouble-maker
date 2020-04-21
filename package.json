@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "sq": "./node_modules/.bin/sequelize"
+    "sq": "./node_modules/.bin/sequelize",
+    "start": "node index.js"
   },
   "dependencies": {
     "@coding-blocks/express-jsonapi-controller": "^1.0.4",

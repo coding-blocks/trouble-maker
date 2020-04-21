@@ -36,7 +36,7 @@ const getScore = (markedChoices, correctChoiceIds, possibleChoices) => {
   const incorrectlyAnswered = possibleChoices.filter(choice => R.contains(choice.id, incorrectlyAnsweredIds))
 
   let score = correctlyAnswered.reduce((acc, c) => acc + c.positiveWeight, 0)
-  score += incorrectlyAnswered.reduce((acc, c) => acc + c.negativeWeight, 0)
+  score -= incorrectlyAnswered.reduce((acc, c) => acc + c.negativeWeight, 0)
 
   // scale score out of 10
   score *= 10
