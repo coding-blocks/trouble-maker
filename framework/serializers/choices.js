@@ -17,7 +17,7 @@ module.exports = function (included = [], type, config) {
   }
 
   const options = {
-    attributes: ['title', 'description', 'positiveWeight' ,'negativeWeight', 'question'],
+    attributes: ['title', 'description', 'question'],
     meta: {
       pagination: function (record) {
         return record.pagination
