@@ -12,6 +12,12 @@ const parseIntArray = (a) => a.map(el => {
 
 const not = fn => () => !fn(...arguments)
 
+const arrayEquals = (arr1, arr2) => {
+  const set = new Set([...arr1, ...arr2])
+
+  return set.length === arr1.length === arr2.length
+}
+
 /* 
   (a, b) -> Boolean
 
@@ -36,7 +42,7 @@ const getScore = (markedChoices, correctChoiceIds, question) => {
   const correctlyAnswered = possibleChoices.filter(choice => R.contains(choice.id, correctlyAnsweredIds))
   const incorrectlyAnswered = possibleChoices.filter(choice => R.contains(choice.id, incorrectlyAnsweredIds))
 
-  const score = R.equals(new Set(correctChoiceIds), new Set(correctlyAnsweredIds)) ? question.positiveScore : -question.negativeScore
+  const score = arrayEquals(correctChoiceIds, correctlyAnsweredIds) ? question.positiveScore : -question.negativeScore
 
   return {
     score,
