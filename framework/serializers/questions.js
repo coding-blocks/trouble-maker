@@ -24,7 +24,18 @@ module.exports = function (included = [], type, config) {
   }
  
   const options = {
-    attributes: ['title', 'description', 'explanation','difficulty' ,'user', 'choices', 'tags','createdBy'],
+    attributes: [
+      'title', 
+      'description', 
+      'explanation',
+      'difficulty',
+      'positiveScore',
+      'negativeScore',
+      'user', 
+      'choices', 
+      'tags',
+      'createdBy'
+    ],
     meta: {
       pagination: function (record) {
         return record.pagination
@@ -37,7 +48,7 @@ module.exports = function (included = [], type, config) {
     },
     choices: {
       ref: 'id',
-      attributes: ['title', 'description', 'positiveWeight' ,'negativeWeight', 'question'],
+      attributes: ['title', 'description', 'question'],
       included: included.includes('choices')
     },
     tags: {

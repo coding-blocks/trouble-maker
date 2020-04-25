@@ -12,6 +12,12 @@ const parseIntArray = (a) => a.map(el => {
 
 const not = fn => () => !fn(...arguments)
 
+const arrayEquals = (arr1, arr2) => {
+  const set = new Set([...arr1, ...arr2])
+
+  return set.length === arr1.length === arr2.length
+}
+
 /* 
   (a, b) -> Boolean
 
@@ -23,7 +29,8 @@ const isContainedIn = (a, b) => R.intersection(a, b).length === a.length
   markedChoices = Array of ids
   correctChoices = Array of Sequelize model instances of correctChoices
 */
-const getScore = (markedChoices, correctChoiceIds, possibleChoices) => {
+const getScore = (markedChoices, correctChoiceIds, question) => {
+  const possibleChoices = question.choices
   // const correctChoiceIds = correctChoices.map(_ => _.id)
 
   // is the id in the correctChoiceIds
@@ -35,11 +42,7 @@ const getScore = (markedChoices, correctChoiceIds, possibleChoices) => {
   const correctlyAnswered = possibleChoices.filter(choice => R.contains(choice.id, correctlyAnsweredIds))
   const incorrectlyAnswered = possibleChoices.filter(choice => R.contains(choice.id, incorrectlyAnsweredIds))
 
-  let score = correctlyAnswered.reduce((acc, c) => acc + c.positiveWeight, 0)
-  score += incorrectlyAnswered.reduce((acc, c) => acc + c.negativeWeight, 0)
-
-  // scale score out of 10
-  score *= 10
+  const score = arrayEquals(correctChoiceIds, correctlyAnsweredIds) ? question.positiveScore : -question.negativeScore
 
   return {
     score,

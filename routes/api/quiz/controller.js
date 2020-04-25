@@ -105,7 +105,7 @@ class QuizController extends BaseController {
         return ;
       }
 
-      const { score, correctlyAnswered, incorrectlyAnswered } = U.getScore(markedChoices, U.parseIntArray(question.correctAnswers), question.choices)
+      const { score, correctlyAnswered, incorrectlyAnswered } = U.getScore(markedChoices, U.parseIntArray(question.correctAnswers), question)
       
       return {
         id: markedQuestion.id,
