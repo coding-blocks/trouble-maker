@@ -14,8 +14,7 @@ const not = fn => () => !fn(...arguments)
 
 const arrayEquals = (arr1, arr2) => {
   const set = new Set([...arr1, ...arr2])
-
-  return set.length === arr1.length === arr2.length
+  return set.size == arr1.length == arr2.length
 }
 
 /* 
