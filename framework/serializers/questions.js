@@ -31,6 +31,7 @@ module.exports = function (included = [], type, config) {
       'difficulty',
       'positiveScore',
       'negativeScore',
+      'multicorrect',
       'user', 
       'choices', 
       'tags',

@@ -43,6 +43,16 @@ class QuestionsController extends BaseController {
     })
   
   }
+
+  async onAfterCreate(req, model) {
+    model.multicorrect = model.correctAnswers.length > 1 
+    return model.save()
+  }
+
+  async onAfterUpdate(req, model) {
+    model.multicorrect = model.correctAnswers.length > 1 || model.multicorrect
+    return model.save()
+  }
   
   async handleUpdateById(req, res) {
     const modelObj = await this.deserialize(req.body)
