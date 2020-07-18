@@ -169,12 +169,13 @@ class QuestionsController extends BaseController {
     //   }
     // })
     
-    const { score, correctlyAnswered, incorrectlyAnswered } = U.getScore(markedChoices, U.parseIntArray(question.correctAnswers), question.choices)
+    const { score, correctlyAnswered, incorrectlyAnswered } = U.getScore(markedChoices, U.parseIntArray(question.correctAnswers), question)
     
     res.json({
       score,
       correctlyAnswered,
-      incorrectlyAnswered
+      incorrectlyAnswered,
+      answers: req.query.showAnswers ? question.correctAnswers : undefined
     })
   }
   
