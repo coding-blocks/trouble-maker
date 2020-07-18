@@ -8,7 +8,7 @@ module.exports = {
       defaultValue: false
     })
     // Migrate existing data
-    return queryInterface.query(`
+    return queryInterface.sequelize.query(`
       update questions
           set multicorrect = array_length("correctAnswers", 1) > 1
       where array_length("correctAnswers", 1) is not null;
