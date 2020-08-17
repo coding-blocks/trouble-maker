@@ -8,7 +8,6 @@ const serializer = require('../../../framework/serializers/quizzes')
 
 const controller = new BaseController(DB.quizzes, DB, serializer)
 
-routes.use(passport.authenticate('bearer', {session: false}), adminOnly)
 
 routes.get('/', controller.handleQuery)
 routes.get('/:id', controller.handleQueryById)
@@ -18,18 +17,18 @@ routes.delete('/:id', controller.handleDeleteById)
 
 // TODO: write the handleSubmit function in controller.
 routes.post('/:id/submit', (req, res, next) => {
-  if (req.query.showAnswers) {
-    // make sure req.user is admin
-    if (req.user.role === 'ADMIN') {
-      next(null, req, res)
+    if (req.query.showAnswers) {
+        // make sure req.user is admin
+        if (req.user.role === 'ADMIN') {
+            next(null, req, res)
+        } else {
+            res.status(400).json({
+                error: 'You cannot request answers as non-admin'
+            })
+        }
     } else {
-      res.status(400).json({
-        error: 'You cannot request answers as non-admin'
-      })
+        next(null, req, res)
     }
-  } else {
-    next(null, req, res)
-  }
 }, controller.handleSubmit)
 
 module.exports = routes;
