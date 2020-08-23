@@ -32,4 +32,6 @@ routes.post('/:id/submit', (req, res, next) => {
   }
 }, controller.handleSubmit)
 
+
+routes.get('/:id/questions', controller.handleGetAllQuestionsOfQuiz)
 module.exports = routes;

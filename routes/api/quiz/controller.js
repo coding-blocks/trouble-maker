@@ -6,7 +6,7 @@ const R = require('ramda')
 class QuizController extends BaseController {
   constructor () {
     super(...arguments)
-    new Array('handleSubmit').forEach(fn => {
+    new Array('handleSubmit', 'handleGetAllQuestionsOfQuiz').forEach(fn => {
       this[fn] = this[fn].bind(this)
     })
   }
@@ -127,6 +127,17 @@ class QuizController extends BaseController {
     }
 
   }
+
+    async handleGetAllQuestionsOfQuiz(req, res, next) {
+        const quiz = await this._model.findById(req.params.id, {
+            include: DB.questions
+        })
+
+        const questions = quiz.questions.map((q) => {
+            return q.get()
+        })
+        res.json(questions)
+    }
 }
 
 module.exports = QuizController
