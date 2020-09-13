@@ -11,6 +11,14 @@ const DB = require('./models')
 const routes = require('./routes')
 const { expressLogger } = require('./utils/logger')
 
+// Import with polyfills
+if (typeof TextEncoder !== 'function') {
+  const TextEncodingPolyfill = require('text-encoding');
+  TextEncoder = TextEncodingPolyfill.TextEncoder;
+  TextDecoder = TextEncodingPolyfill.TextDecoder;
+}
+const WhispererService = require('./services/whisperer')
+
 Raven.config(config.SENTRY_DSN).install()
 
 app.use(require('cookie-parser')());
@@ -40,7 +48,12 @@ app.use(function onError(err, req, res, next) {
   }
 }, Raven.errorHandler())
 
-DB.sequelize.sync().then(() => {
+DB.sequelize.sync().then(async () => {
+  try {
+    await WhispererService.initialize()
+  } catch(err) {
+    console.log(err)
+  }
   const port = process.env.PORT || '8080'
   app.listen(port, () => console.log('Listening on ', port))
 })

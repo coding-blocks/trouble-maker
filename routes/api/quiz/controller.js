@@ -2,6 +2,7 @@ const { Controller: BaseController } = require('@coding-blocks/express-jsonapi-c
 const DB = require('../../../models')
 const U = require('../../../utils')
 const R = require('ramda')
+const WhispererService = require('../../../services/whisperer')
 
 class QuizController extends BaseController {
   constructor () {
@@ -48,6 +49,15 @@ class QuizController extends BaseController {
 
     await Promise.all([addQuestions, removeQuestions, setUpdatedBy])
     return super.handleUpdateById(...arguments)
+  }
+
+  async onAfterUpdate(req, model) {
+    WhispererService.emit('troublemaker_quiz.updated', {
+      body: {
+        resourceId: model.id,
+        resource: 'quiz'
+      }
+    })
   }
 
   // body : {
@@ -128,16 +138,16 @@ class QuizController extends BaseController {
 
   }
 
-    async handleGetAllQuestionsOfQuiz(req, res, next) {
-        const quiz = await this._model.findById(req.params.id, {
-            include: DB.questions
-        })
+  async handleGetAllQuestionsOfQuiz(req, res, next) {
+      const quiz = await this._model.findById(req.params.id, {
+          include: DB.questions
+      })
 
-        const questions = quiz.questions.map((q) => {
-            return q.get()
-        })
-        res.json(questions)
-    }
+      const questions = quiz.questions.map((q) => {
+          return q.get()
+      })
+      res.json(questions)
+  }
 }
 
 module.exports = QuizController
