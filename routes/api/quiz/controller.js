@@ -3,6 +3,7 @@ const DB = require('../../../models')
 const U = require('../../../utils')
 const R = require('ramda')
 const WhispererService = require('../../../services/whisperer')
+const Sequelize = require('sequelize') 
 
 class QuizController extends BaseController {
   constructor () {
@@ -147,6 +148,22 @@ class QuizController extends BaseController {
           return q.get()
       })
       res.json(questions)
+  }
+
+  async onAfterGetById(req, quiz) {
+    const [result] = await DB.quizzes.findAll({
+      logging: true,
+     includeIgnoreAttributes: false,
+      attributes: [ 'id' ,[Sequelize.fn('sum', Sequelize.col('questions.positiveScore')), 'total']],
+      include: {
+        model: DB.questions,
+      },
+     where: {
+        id: quiz.id
+      },
+      group: ['quizzes.id']
+    })
+    quiz.maxMarks = result ? +result.get('total') : 0
   }
 }
 
