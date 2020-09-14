@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@coding-blocks/express-jsonapi-controller": "^1.0.4",
-    "@coding-blocks/whisperer": "^0.0.4",
+    "@coding-blocks/whisperer": "^0.0.6",
     "body-parser": "^1.18.3",
     "connect-ensure-login": "^0.1.1",
     "cookie-parser": "^1.4.3",

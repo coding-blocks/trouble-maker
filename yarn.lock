@@ -12,10 +12,10 @@
     jsonapi-serializer "^3.6.4"
     ramda "^0.26.1"
 
-"@coding-blocks/whisperer@^0.0.4":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@coding-blocks/whisperer/-/whisperer-0.0.4.tgz#b5476c2e9966b1ab14538d0d8d5cec64c3077e5f"
-  integrity sha512-tlk3q47zbTA6L2ffOUEmjG+e0ZIQ3HCrgma5oMGMw4rMBr54INps14KNWU45xw21a8Fu23cCi57PX5GVZrL3vg==
+"@coding-blocks/whisperer@^0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@coding-blocks/whisperer/-/whisperer-0.0.6.tgz#cebd7681cbf541ec987460507a44872cd69c9756"
+  integrity sha512-ZmTqyAyALV2u1Rgwp8VgxkAS+yPD6lf3kWtvICW3pz31PFu+jhV8d9YdUzx8u908XZxwRJ9xAEfOise48cEXEQ==
   dependencies:
     "@stomp/stompjs" "^5.4.4"
     "@types/ws" "^7.2.6"
