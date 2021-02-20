@@ -1,7 +1,7 @@
 # trouble-maker
 
 This README outlines the details of collaborating on this Ember application.
-This is the backend application to **trouble-maker-frontend**
+This is the backend application to **[trouble-maker-frontend](https://github.com/coding-blocks/trouble-maker-frontend)**
 
 ## Prerequisites
 
