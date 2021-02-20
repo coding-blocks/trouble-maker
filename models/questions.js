@@ -14,9 +14,9 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true
     },
     difficulty: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.ENUM ('EASY', 'MEDIUM', 'HARD'),
       allowNull: false,
-      defaultValue: 0
+      defaultValue: 'EASY'
     },
     correctAnswers: {
       type: DataTypes.ARRAY(DataTypes.BIGINT),
