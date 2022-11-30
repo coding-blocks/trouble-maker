@@ -165,6 +165,16 @@ class QuizController extends BaseController {
     })
     quiz.maxMarks = result ? +result.get('total') : 0
   }
+
+  async handleGetMaxMarks(req, res) {
+    const quiz = await DB.quizzes.findById(req.params.id, {
+      include: { model: DB.questions }
+    })
+    const maxMarks = quiz.questions.reduce((acc, cur) => acc + cur.get('positiveScore'), 0)
+    res.json({
+      maxMarks
+    })
+  }
 }
 
 module.exports = QuizController

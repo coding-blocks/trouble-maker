@@ -12,6 +12,7 @@ routes.use(passport.authenticate('bearer', {session: false}), adminOnly)
 
 routes.get('/', controller.handleQuery)
 routes.get('/:id', controller.handleQueryById)
+routes.get('/:id/max-marks', controller.handleGetMaxMarks)
 routes.post('/', controller.handleCreate)
 routes.patch('/:id', controller.handleUpdateById)
 routes.delete('/:id', controller.handleDeleteById)
