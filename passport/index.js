@@ -60,6 +60,15 @@ passport.use(new BearerStrategy(async function (token, cb) {
   }
 }))
 
+passport.use('api-bearer', new BearerStrategy(async function(token, cb){
+  const key = await DB.keys.findOne({ where: { key: token }, include: {model: DB.users}})
+  if(!!key) {
+    cb(null, key.user)
+  } else {
+    cb(null, false)
+  }
+}))
+
 
 
 module.exports = passport
