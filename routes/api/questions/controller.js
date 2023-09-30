@@ -53,6 +53,14 @@ class QuestionsController extends BaseController {
     model.multicorrect = model.correctAnswers.length > 1 || model.multicorrect
     return model.save()
   }
+
+  async onAfterGetQuery(req, rows) {
+    if(req.query.random === 'si') {//como estas amigo
+      const randomIndex = Math.floor(Math.random() * rows.length)
+      rows.splice(0, randomIndex)
+      rows.splice(1, Infinity)
+    }
+  }
   
   async handleUpdateById(req, res) {
     const modelObj = await this.deserialize(req.body)
