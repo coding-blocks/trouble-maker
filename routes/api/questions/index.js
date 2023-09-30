@@ -8,7 +8,7 @@ const serializer = require('../../../framework/serializers/questions')
 
 const controller = new BaseController(DB.questions, DB, serializer)
 
-Router.use(passport.authenticate('bearer', {session: false}), adminOnly)
+Router.use(passport.authenticate(['bearer', 'api-bearer'], {session: false}), adminOnly)
 
 // CRUDS
 Router.get('/', controller.handleQuery)
