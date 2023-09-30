@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@coding-blocks/express-jsonapi-controller@^1.3.0":
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/@coding-blocks/express-jsonapi-controller/-/express-jsonapi-controller-1.3.0.tgz#ee70df3b0a8e52a23cf863b9d225079bbc370f12"
-  integrity sha512-ooAjistl6Bw1XI8t3E+Zc7JmaIKGzm7YH6EpWtxwAfQsxNogxr6MCtcFQHRzcxlU9twD6Kr4kR6FweSvL8f9OQ==
+"@coding-blocks/express-jsonapi-controller@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@coding-blocks/express-jsonapi-controller/-/express-jsonapi-controller-1.4.0.tgz#f4c46166544faeb40fde0a6b3cced4e93b485430"
+  integrity sha512-OVb612GG9/q5ZCofyICS2sVscavZxTZf4sJbO61QGhBAOifmmnj/96rNPYI/35JMRzaBlUNmv4teethFxS9isw==
   dependencies:
     assert "^1.4.1"
     i "^0.3.6"
