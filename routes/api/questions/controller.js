@@ -56,9 +56,14 @@ class QuestionsController extends BaseController {
 
   async onAfterGetQuery(req, rows) {
     if(req.query.random === 'si') {//como estas amigo
-      const randomIndex = Math.floor(Math.random() * rows.length)
-      rows.splice(0, randomIndex)
-      rows.splice(1, Infinity)
+      if(req.query.random_count && +req.query.random_count > 1) {
+        rows.sort(() => 0.5 - Math.random())//shuffle array
+        rows.splice(+req.query.random_count, Infinity)//select first n
+      } else {
+        const randomIndex = Math.floor(Math.random() * rows.length)
+        rows.splice(0, randomIndex)
+        rows.splice(1, Infinity)
+      }
     }
   }
   
