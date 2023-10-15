@@ -8,7 +8,7 @@ const serializer = require('../../../framework/serializers/choices')
 
 const controller = new BaseController(DB.choices, DB, serializer)
 
-Router.use(passport.authenticate('bearer', {session: false}), adminOnly)
+Router.use(passport.authenticate(['bearer', 'api-bearer'], {session: false}), adminOnly)
 Router.get('/', controller.handleQuery)
 Router.get('/:id', controller.handleQueryById)
 Router.patch('/:id', controller.handleUpdateById)

@@ -8,7 +8,7 @@ const serializer = require('../../../framework/serializers/quizzes')
 
 const controller = new BaseController(DB.quizzes, DB, serializer)
 
-routes.use(passport.authenticate('bearer', {session: false}), adminOnly)
+routes.use(passport.authenticate(['bearer', 'api-bearer'], {session: false}), adminOnly)
 
 routes.get('/', controller.handleQuery)
 routes.get('/:id', controller.handleQueryById)
