@@ -52,14 +52,14 @@ class QuizController extends BaseController {
     return super.handleUpdateById(...arguments)
   }
 
-  async onAfterUpdate(req, model) {
-    WhispererService.emit('troublemaker_quiz.updated', {
-      body: {
-        resourceId: model.id,
-        resource: 'quiz'
-      }
-    })
-  }
+  // async onAfterUpdate(req, model) {
+  //   WhispererService.emit('troublemaker_quiz.updated', {
+  //     body: {
+  //       resourceId: model.id,
+  //       resource: 'quiz'
+  //     }
+  //   })
+  // }
 
   // body : {
   //   questions: [{

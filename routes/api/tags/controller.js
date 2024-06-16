@@ -2,7 +2,7 @@ const { Controller: BaseController } = require('@coding-blocks/express-jsonapi-c
 const DB = require('../../../models')
 const U = require('../../../utils')
 const R = require('ramda')
-const WhispererService = require('../../../services/whisperer')
+// const WhispererService = require('../../../services/whisperer')
 const Sequelize = require('sequelize') 
 const tagSerializer = require('../../../framework/serializers/tags')
 

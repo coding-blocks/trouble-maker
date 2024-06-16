@@ -1,4 +1,4 @@
-require('newrelic')
+// require('newrelic')
 const express = require('express')
 const morgan = require('morgan')
 const Raven = require('raven')
@@ -50,10 +50,10 @@ app.use(function onError(err, req, res, next) {
 
 DB.sequelize.sync().then(async () => {
   try {
-    await WhispererService.initialize()
+    // await WhispererService.initialize()
   } catch(err) {
     console.log(err)
   }
-  const port = process.env.PORT || '8080'
+  const port = process.env.PORT || '8082'
   app.listen(port, () => console.log('Listening on ', port))
 })
