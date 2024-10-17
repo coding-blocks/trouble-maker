@@ -47,6 +47,7 @@ const getScore = (markedChoices, correctChoiceIds, question) => {
 
   return {
     score,
+    questionAnsweredCorrectly: arrayEquals(correctChoiceIds, correctlyAnsweredIds),
     correctlyAnswered,
     incorrectlyAnswered
   }

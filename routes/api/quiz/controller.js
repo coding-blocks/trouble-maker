@@ -116,11 +116,12 @@ class QuizController extends BaseController {
         return ;
       }
 
-      const { score, correctlyAnswered, incorrectlyAnswered } = U.getScore(markedChoices, U.parseIntArray(question.correctAnswers), question)
+      const { score, correctlyAnswered, incorrectlyAnswered, questionAnsweredCorrectly } = U.getScore(markedChoices, U.parseIntArray(question.correctAnswers), question)
       
       return {
         id: markedQuestion.id,
         score,
+        questionAnsweredCorrectly,
         correctlyAnswered,
         incorrectlyAnswered,
         answers: req.query.showAnswers ? question.correctAnswers : undefined
